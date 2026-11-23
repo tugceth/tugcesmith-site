@@ -223,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (stacked) {
         sx = X(left ? r.left : r.right); sy = Y(r.top + r.height / 2);
         const out1 = left ? Math.max(sx - 30, 5) : Math.min(sx + 30, W - 5);
-        d = `M${sx},${sy} C${out1},${sy + (ty - sy) * .25} ${left ? tx - 60 : tx + 60},${ty - 10} ${tx},${ty}`;
+        const dy = ty > sy ? -10 : 10;
+        d = `M${sx},${sy} C${out1},${sy + (ty - sy) * .25} ${left ? tx - 60 : tx + 60},${ty + dy} ${tx},${ty}`;
       } else {
         sx = X(left ? r.right : r.left); sy = Y(r.top + r.height / 2);
         d = `M${sx},${sy} C${sx + (tx - sx) * .75},${sy} ${tx},${sy + (ty - sy) * .25} ${tx},${ty}`;
