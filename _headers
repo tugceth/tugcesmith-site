@@ -1,0 +1,10 @@
+/images/*
+  Cache-Control: public, max-age=2592000
+/videos/*
+  Cache-Control: public, max-age=2592000
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/styles.css
+  Cache-Control: public, max-age=3600
+/script.js
+  Cache-Control: public, max-age=3600
