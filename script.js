@@ -257,3 +257,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lb.hidden) close(); });
   }
 });
+
+// Analytics: "Book a call" clicks and views
+(() => {
+  const send = (name, params) => { try { if (typeof gtag === 'function') gtag('event', name, params); } catch (e) {} };
+  const page = location.pathname.replace(/\/$/, '') || '/';
+  document.querySelectorAll('a[href*="calendly.com"]').forEach((a) => {
+    const loc = a.closest('.final-cta') ? 'footer' : 'hero';
+    const params = { cta_location: loc, page_path: page, link_url: a.href };
+    a.addEventListener('click', () => send('book_call_click', params));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((es) => {
+        es.forEach((e) => { if (e.isIntersecting) { send('book_call_view', params); io.disconnect(); } });
+      }, { threshold: 0.6 });
+      io.observe(a);
+    }
+  });
+})();
